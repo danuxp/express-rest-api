@@ -12,4 +12,23 @@ const createData = (body) => {
   return result;
 };
 
-module.exports = { getAllData, createData };
+const updateData = (body, id) => {
+  const query = `
+  update biodatas set 
+    nama_lengkap='${body.nama_lengkap}',
+    nama_cantik='${body.nama_cantik}',
+    jenis_kelamin='${body.jenis_kelamin}',
+    angkatan='${body.angkatan}'
+  where nim='${id}'
+  `;
+  const result = dbPool.execute(query);
+  return result;
+};
+
+const deleteData = (id) => {
+  const query = `delete from biodatas where nim='${id}'`;
+  const result = dbPool.execute(query);
+  return result;
+};
+
+module.exports = { getAllData, createData, updateData, deleteData };
