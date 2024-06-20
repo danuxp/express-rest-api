@@ -1,25 +1,52 @@
-const getAllUsers = (req, res) => {
-  res.json({
-    message: "GET All user success",
-  });
+const bioModel = require("../models/biodata");
+
+const getAllData = async (req, res) => {
+  try {
+    // Destructuring Variable
+    const [data] = await bioModel.getAllData();
+    res.json({
+      message: "GET All user success",
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 
-const createNewUser = (req, res) => {
-  res.json({
-    message: "POST data success ",
-    data: req.body,
-  });
+const createNewUser = async (req, res) => {
+  const { body } = req;
+  try {
+    await bioModel.createData(req.body);
+    res.json({
+      message: "POST data success ",
+      data: body,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 
 const updateUser = (req, res) => {
-  const { idUser } = req.params;
+  const { id } = req.params;
   res.json({
-    message: "UPDATE data success" + idUser,
+    message: "UPDATE data success" + id,
+  });
+};
+
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: "DELETE data success" + id,
   });
 };
 
 module.exports = {
-  getAllUsers,
+  getAllData,
   createNewUser,
   updateUser,
+  deleteUser,
 };
