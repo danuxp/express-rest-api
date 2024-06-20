@@ -49,7 +49,8 @@ const updateData = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
-
+  // let [getdata] = await bioModel.getAllData(id);
+  // console.log(getdata.);
   try {
     await bioModel.deleteData(id);
     res.json({

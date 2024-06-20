@@ -1,7 +1,11 @@
 const dbPool = require("../config/database");
 
-const getAllData = () => {
-  const query = "select * from biodatas";
+const getAllData = (id = false) => {
+  let where = "";
+  if (id !== false) {
+    where = ` where nim='${id}'`;
+  }
+  const query = `select * from biodatas ${where}`;
   const result = dbPool.execute(query);
   return result;
 };
